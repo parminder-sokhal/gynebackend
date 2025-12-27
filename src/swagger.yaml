@@ -1,0 +1,500 @@
+openapi: 3.0.0
+info:
+  title: Luna Hospital Management API
+  description: |
+    Welcome to the backend API documentation for **Luna Hospital Management System**.
+    
+    This API enables seamless management of doctors, patients, appointments, departments, and medical records.
+
+    Key features include:
+    - Patient registration and record tracking
+    - Appointment scheduling and time slot management
+    - Doctor profile management with specialization and availability
+    - Secure user authentication and role-based access
+
+    Developers and contributors are welcome to explore, enhance, or suggest improvements to the system for better healthcare management.
+
+    Some useful links:
+    - [Backend Repository](https://github.com/razrahul/Client-Backend)
+    
+    - [Frontend UI(netlify)](https://contact-fromdata.netlify.app)
+    - [Frontend UI(render)](https://client-frontend-juzp.onrender.com)
+    
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Rahul Kumar
+    email: razrahuleee@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+servers:
+  - url: https://hospital-backend-h4v5.onrender.com/api/v1
+    description: satge Server
+  - url: http://localhost:5500/api/v1
+    description: Local Development Server
+
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: doctor
+  - name: Appointment
+  - name: payment
+  - name: user
+paths:
+  /doctor:
+    post:
+      tags:
+        - doctor
+      summary: create doctor
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test
+                specialization:
+                  type: string
+                  example: Neuro & Spine Specialist
+                hospital:
+                  type: string
+                  example: Neurologist at BrainCare Hospital
+                about:
+                  type: string
+                  example: >-
+                    Dr. Neeraj Gupta is a leading neurologist with over 20 years
+                    of experience treating patients with complex neurological
+                    disorders. He is known for his patient-friendly approach,
+                    clinical excellence, and deep involvement in research and
+                    education.
+                qualification:
+                  type: string
+                  example: >-
+                    MBBS - AIIMS Delhi | MD Neurology - PGIMER Chandigarh |
+                    Fellowship - Harvard Medical School.
+                awards:
+                  type: string
+                  example: >-
+                    Best Neurologist of the Year (2019), Global Medical
+                    Excellence Award (2021), Lifetime Achievement in
+                    Neurosciences (2023)
+                experience:
+                  type: string
+                  example: 10 yrs
+                fees:
+                  type: integer
+                  example: '700'
+                availability:
+                  type: string
+                  example: available
+                phone:
+                  type: integer
+                  example: '9708712422'
+                email:
+                  type: string
+                  example: test1@gmail.com
+                hospitalSlots:
+                  type: string
+                  example: '["10:00 AM", "10:30 AM", "11:00 AM"]'
+                videoSlots:
+                  type: string
+                  example: '["06:00 PM", "07:30 PM", "08:00 PM"]'
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /doctors:
+    get:
+      tags:
+        - doctor
+      summary: get All doctors
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /doctor/{id}:
+    get:
+      tags:
+        - doctor
+      summary: get doctor by id
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 6808fd3808a3fc484bce2003
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - doctor
+      summary: delete doctor
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 6808fd3808a3fc484bce2003
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - doctor
+      summary: update doctor
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test
+                specialization:
+                  type: string
+                  example: Neuro & Spine Specialist
+                hospital:
+                  type: string
+                  example: Neurologist at BrainCare Hospital
+                about:
+                  type: string
+                  example: >-
+                    Dr. Neeraj Gupta is a leading neurologist with over 20 years
+                    of experience treating patients with complex neurological
+                    disorders. He is known for his patient-friendly approach,
+                    clinical excellence, and deep involvement in research and
+                    education.
+                qualification:
+                  type: string
+                  example: >-
+                    MBBS - AIIMS Delhi | MD Neurology - PGIMER Chandigarh |
+                    Fellowship - Harvard Medical School.
+                awards:
+                  type: string
+                  example: >-
+                    Best Neurologist of the Year (2019), Global Medical
+                    Excellence Award (2021), Lifetime Achievement in
+                    Neurosciences (2023)
+                experience:
+                  type: string
+                  example: 10 yrs
+                fees:
+                  type: integer
+                  example: '700'
+                availability:
+                  type: string
+                  example: available
+                phone:
+                  type: integer
+                  example: '9708712422'
+                email:
+                  type: string
+                  example: test1@gmail.com
+                hospitalSlots:
+                  type: string
+                  example: '["10:00 AM", "10:30 AM", "11:00 AM"]'
+                videoSlots:
+                  type: string
+                  example: '["06:00 PM", "07:30 PM", "08:00 PM"]'
+                file:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /doctor/{id}/availability:
+    put:
+      tags:
+        - doctor
+      summary: change availability
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                availability: unavailable
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 6808fd3808a3fc484bce2003
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /available-doctors:
+    get:
+      tags:
+        - doctor
+      summary: get All available doctors
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /appoints:
+    get:
+      tags:
+        - Appointment
+      summary: get All Appointment
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /appoints/{date}:
+    get:
+      tags:
+        - Appointment
+      summary: get Appontment by date
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: date
+          in: path
+          schema:
+            type: string
+          required: true
+          example: '2025-04-23'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /appoint/{id}:
+    post:
+      tags:
+        - Appointment
+      summary: create Appointment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Rajan kumar
+                age: 24 yrs
+                gender: Male
+                phone: '9708712422'
+                email: eajan@gmail.com
+                address: Digha Patna
+                consultationMode: Hospital Visit
+                date: '2025-05-02'
+                timeSlot: 11:00 AM
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 6813180b07f2babf2b8637f7
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /payment/create/{appointmentId}:
+    post:
+      tags:
+        - payment
+      summary: /payment/create/ (make payment instant)
+      requestBody:
+        content: {}
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: appointmentId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 680912f77ea9cef3c21173a4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  //payment/verify:
+    post:
+      tags:
+        - payment
+      summary: payment verification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                razorpay_order_id: order_QN0h91cQnjIA96
+                razorpay_payment_id: pay_123456
+                razorpay_signature: >-
+                  e8ea76e2718ec8e6d81cbcf95e0f9d3bd8fe69c7e153ab4361521bdca77b295c
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  //payment/all:
+    get:
+      tags:
+        - payment
+      summary: get All Payment
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /payment/appointment/{appointmentId}:
+    get:
+      tags:
+        - payment
+      summary: get payment by apponitenrt id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: appointmentId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 680912f77ea9cef3c21173a4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /payment/{paymentId}:
+    get:
+      tags:
+        - payment
+      summary: get payment By paymentId
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: paymentId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 680a90eb205bce8b6e424be2
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /register:
+    post:
+      tags:
+        - user
+      summary: user register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Rahul Kumar
+                email: raz@gmail.com
+                password: Test@12345
+                role: admin
+                phone: '9708712422'
+                address: Digha Patna
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /login:
+    post:
+      tags:
+        - user
+      summary: login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: raz@gmail.com
+                password: Test@12345
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/{id}:
+    delete:
+      tags:
+        - user
+      summary: delete user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+          example: 680d1be1f33eb9354f5fb9c4
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
